@@ -10,6 +10,7 @@ header {
     justify-content: center;
     align-items: center;
     padding: 30px;
+    border-bottom: 1px solid black;
 }
 h1 {
     margin-bottom: 15px;
@@ -19,13 +20,29 @@ header button {
     background-color: darkblue;
     color:white;
 }
+header button:disabled {
+    background-color: lightgrey;
+    cursor: no-drop;
+}
 #container {
-    width: 1170px;
-    margin: 0 auto;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#calendario {
+    width: 1050px;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+
 }
 #calendario li {
-    margin:10px;
+    width: 150px;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #EDEDED;
 }
 #calendario li.festa{
-    color: red;
+    background-color: #FED9A8;
 }

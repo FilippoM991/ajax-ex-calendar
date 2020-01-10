@@ -1,27 +1,41 @@
 $(document).ready(function() {
+    // moment.locale('It');
     var template_html= $("#giorno-template").html();
     var template_function= Handlebars.compile(template_html);
 
     var data_iniziale = "2018-01-01";
-    var moment_iniziale = moment(data_iniziale);
+    var moment_data = moment(data_iniziale);
+
+    var inizio_calendario = moment("2018-01-01");
+    // imposto il giorno 1 e non il 31 perchè poi posso usare isSameorAfter aggiungendo solo 1 mese alla data iniziale, arrivando proprio al 1 dicembre, mettendo il 31 non verrebbe rispettata la regola e permetterebbe di avanzare ancora di 1
+    var fine_calendario = moment("2018-12-01");
     // visualizzo già il titolo iniziale con gennaio
-    stampa_mese(moment_iniziale);
-    stampa_festivita(moment_iniziale);
+    stampa_mese(moment_data);
+    stampa_festivita(moment_data);
+    $("#precedente").prop("disabled", true);
 
 
     $("#successivo").click(function(){
         // devo aggiungere un mese alla data da visualizzare
-        moment_iniziale.add(1, "months");
+        moment_data.add(1, "months");
         // visualizzo il calendario aggiornato
-        stampa_mese(moment_iniziale);
-        stampa_festivita(moment_iniziale);
+        stampa_mese(moment_data);
+        stampa_festivita(moment_data);
+        $("#precedente").prop("disabled", false);
+        if (moment_data.isSameOrAfter(fine_calendario)) {
+            $(this).prop("disabled", true);
+        }
     })
     $("#precedente").click(function(){
         // devo aggiungere un mese alla data da visualizzare
-        moment_iniziale.subtract(1, "months");
+        moment_data.subtract(1, "months");
         // visualizzo il calendario aggiornato
-        stampa_mese(moment_iniziale);
-        stampa_festivita(moment_iniziale);
+        stampa_mese(moment_data);
+        stampa_festivita(moment_data);
+        $("#successivo").prop("disabled", false);
+        if (moment_data.isSameOrBefore(inizio_calendario)) {
+            $(this).prop("disabled", true);
+        }
     })
 
 
@@ -34,6 +48,7 @@ $(document).ready(function() {
         var giorni_mese = data_mese.daysInMonth();
         // come si chiama questo mese?
         var mese_testuale = data_mese.format("MMMM");
+        mese_testuale = mese_testuale.charAt(0).toUpperCase() + mese_testuale.slice(1);
 
         // imposto il titolo con il mese corrente
         $("#mese-corrente").text(mese_testuale);
@@ -43,7 +58,7 @@ $(document).ready(function() {
             // var giorno_standard = data_mese.format("YYYY-MM-") + formatta_giorno(i)
 
             var placeholder = {
-                day: i + " " + mese_testuale,
+                day: i + " " + data_mese_giorno.format("ddd"),
                 // sopra ho clonato la data cosi posso usarla qui
                 standard_day: data_mese_giorno.format("YYYY-MM-DD")
             };
