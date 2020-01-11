@@ -39,9 +39,12 @@ $(document).ready(function() {
     })
 
 
+
     function stampa_mese(data_mese) {
         // resetto il calendario
         $("#calendario").empty();
+        // richiamo la funzione che mi aggiunge gli <li> vuoti per far si che il primo giorno del mese sia nella posizione corretta nel fine_calendario
+        stampa_vuoti(moment_data);
         // clonoclono la data del mese cosi posso aumentarla senza problemi dovendo aumentare man mano il data nell html che serve per individualizzare ogni giorno e poterlo confrontare con le festività dateci dalla chiamata ajax
         var data_mese_giorno= moment(data_mese);
         // quanti giorni ci sono in questo mese?
@@ -68,6 +71,12 @@ $(document).ready(function() {
             data_mese_giorno.add(1, "days");
         };
     };
+    function stampa_vuoti(primo_giorno){
+        var numero_giorno_settimana = primo_giorno.isoWeekday();
+        for (var i = 1; i < numero_giorno_settimana; i++) {
+            $("#calendario").append("<li class='vuoti'>" + "</li>");
+        }
+    }
     function stampa_festivita(data_mese){
         $.ajax({
             "url": "https://flynn.boolean.careers/exercises/api/holidays",

@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    background-color: #F8F9FA;
+}
 header {
     height: 100px;
     display: flex;
@@ -14,10 +17,11 @@ header {
 }
 h1 {
     margin-bottom: 15px;
+    color: #6A6A6A;
 }
 header button {
     padding: 10px 20px;
-    background-color: darkblue;
+    background-color: #798481;
     color:white;
 }
 header button:disabled {
@@ -27,8 +31,17 @@ header button:disabled {
 #container {
     margin-top: 30px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+#barra_giorni {
+    width: 1050px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #7F7F7F;
+    color:white;
+    font-size: 20px;
 }
 #calendario {
     width: 1050px;
@@ -39,10 +52,13 @@ header button:disabled {
 }
 #calendario li {
     width: 150px;
-    height: 80px;
+    height: 95px;
     padding: 10px;
     border: 1px solid #EDEDED;
 }
 #calendario li.festa{
     background-color: #FED9A8;
+}
+#calendario li.vuoti{
+    background-color: #F2F2F2;
 }
